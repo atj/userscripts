@@ -1,0 +1,29 @@
+// ==UserScript==
+// @name        Add Spotify ISRC link to release pages
+// @version     2019.6.13.1
+// @description Adds an "import ISRCs" link to release pages with a Spotify URL
+// @author      atj
+// @license     MIT; https://opensource.org/licenses/MIT
+// @namespace   https://github.com/atj/userscripts
+// @downloadURL https://raw.github.com/atj/userscripts/master/mb_spotify_isrc_link.user.js
+// @updateURL	https://raw.github.com/atj/userscripts/master/mb_spotify_isrc_link.user.js
+// @require     https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js
+// @match       http*://*.musicbrainz.org/release/*
+// @grant       none
+// ==/UserScript==
+
+// prevent JQuery conflicts, see http://wiki.greasespot.net/@grant
+this.$ = this.jQuery = jQuery.noConflict(true);
+
+$(document).ready(function() {
+    let spotifyLink = $('#release-relationships a[href*="open.spotify.com"]')[0];
+
+    if (spotifyLink === undefined) {
+        return;
+    }
+
+    let releaseUrl = window.location.href.replace(/\?.*$/, '').replace(/#.*$/, '');
+    let spotifyId = spotifyLink.href.replace(/^https?:\/\/open\.spotify\.com\/album\//i, '');
+    let tatsumoUrl = `https://tatsumo.pythonanywhere.com/album/${spotifyId}?bind=${encodeURIComponent(releaseUrl)}`;
+    $(spotifyLink.nextElementSibling.nextSibling).after(` [<a href="${tatsumoUrl}" target="_blank">import ISRCs</a>]`);
+});
