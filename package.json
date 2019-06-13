@@ -1,0 +1,33 @@
+{
+    "name": "userscripts",
+    "version": "0.1.0",
+    "description": "Various useful userscripts",
+    "main": "index.js",
+    "scripts": {
+        "prettier:format": "prettier --write \"{,**/}*.{js,json,md}\"",
+        "lint": "npm run eslint",
+        "lint-fix": "npm run eslint -- --fix",
+        "eslint": "eslint ."
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/atj/userscripts.git"
+    },
+    "keywords": [
+        "musicbrainz",
+        "userscripts"
+    ],
+    "author": "Adam James <atj@pulsewidth.org.uk>",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/atj/userscripts/issues"
+    },
+    "homepage": "https://github.com/atj/userscripts",
+    "devDependencies": {
+        "eslint": "^5.9.0",
+        "eslint-config-prettier": "^3.3.0",
+        "eslint-plugin-import": "^2.14.0",
+        "eslint-plugin-prettier": "^3.0.0",
+        "prettier": "^1.15.2"
+    }
+}
