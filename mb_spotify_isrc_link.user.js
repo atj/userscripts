@@ -15,7 +15,7 @@
 // prevent JQuery conflicts, see http://wiki.greasespot.net/@grant
 this.$ = this.jQuery = jQuery.noConflict(true);
 
-$(document).ready(function() {
+$(document).ready(function () {
     let spotifyLink = $('#release-relationships a[href*="open.spotify.com"]')[0];
 
     if (spotifyLink === undefined) {
