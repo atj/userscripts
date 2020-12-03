@@ -37,7 +37,7 @@ function addAtisketLink(path) {
         </button>`
     ).hide();
 
-    $('button[title="Save to Your Library"]').first().after(atisketButton);
+    $('button[title="More"]').first().before(atisketButton);
     atisketButton.show();
 }
 
