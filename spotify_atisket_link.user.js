@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        Add a-tisket import link to Spotify
-// @version     2020.9.28.1
+// @version     2020.12.24.1
 // @description Adds a link to Spotify to import a release into MusicBrainz via a-tisket
 // @author      atj
 // @license     MIT; https://opensource.org/licenses/MIT
