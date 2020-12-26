@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        Add Spotify ISRC link to release pages
-// @version     2019.6.17.1
+// @version     2020.12.26.1
 // @description Adds an "import ISRCs" link to release pages with a Spotify URL
 // @author      atj
 // @license     MIT; https://opensource.org/licenses/MIT
@@ -24,6 +24,6 @@ $(document).ready(function () {
 
     let mbId = window.location.href.replace(/^.+\/release\/([-0-9a-f]{36}).*$/i, '$1');
     let spotifyId = spotifyLink.href.replace(/^.+\/album\/([0-9a-z]+)/i, '$1');
-    let tatsumoUrl = `https://tatsumo.pythonanywhere.com/album/${spotifyId}?bind=${mbId}`;
+    let tatsumoUrl = `https://d.ontun.es?entity=album&id=${spotifyId}&attach=${mbId}`;
     $(spotifyLink.nextElementSibling.nextSibling).after(` [<a href="${tatsumoUrl}" target="_blank">import ISRCs</a>]`);
 });
