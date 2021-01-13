@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        Add a-tisket import link to Spotify
-// @version     2020.12.24.1
+// @version     2021.1.13.1
 // @description Adds a link to Spotify to import a release into MusicBrainz via a-tisket
 // @author      atj
 // @license     MIT; https://opensource.org/licenses/MIT
@@ -12,11 +12,14 @@
 // @grant       none
 // ==/UserScript==
 
-// prevent JQuery conflicts, see http://wiki.greasespot.net/@grant
-this.$ = this.jQuery = jQuery.noConflict(true);
-
+// change this to link to a different a-tisket instance
+// const ATISKET = `https://etc.marlonob.info/atisket`;
+const ATISKET = `https://atisket.pulsewidth.org.uk`;
 // change this to your preferred country codes
 const COUNTRIES = encodeURIComponent(`GB,US,DE`);
+
+// prevent JQuery conflicts, see http://wiki.greasespot.net/@grant
+this.$ = this.jQuery = jQuery.noConflict(true);
 
 function addAtisketLink(path) {
     let spotifyReleaseId = getReleaseIdFromPath(path);
@@ -28,7 +31,7 @@ function addAtisketLink(path) {
     // remove any old instances of the button in the DOM
     $('#atisket').remove();
 
-    let atisketLink = `https://etc.marlonob.info/atisket/?preferred_countries=${COUNTRIES}&spf_id=${spotifyReleaseId}`;
+    let atisketLink = `${ATISKET}/?preferred_countries=${COUNTRIES}&spf_id=${spotifyReleaseId}`;
     let atisketButton = $(
         `<button type="button" id="atisket" class="_07bed3a434fa59aa1852a431bf2e19cb-scss" style="padding:6px;border:1px solid;border-radius:5px;">
             <a href="${atisketLink}" target="_blank">
