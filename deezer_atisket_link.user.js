@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        Add a-tisket import link to Deezer
-// @version     2020.9.27.1
+// @version     2021.1.13.1
 // @description Adds a link to Deezer to import a release into MusicBrainz via a-tisket
 // @author      atj
 // @license     MIT; https://opensource.org/licenses/MIT
@@ -12,11 +12,14 @@
 // @grant       none
 // ==/UserScript==
 
-// prevent JQuery conflicts, see http://wiki.greasespot.net/@grant
-this.$ = this.jQuery = jQuery.noConflict(true);
-
+// change this to link to a different a-tisket instance
+// const ATISKET = `https://etc.marlonob.info/atisket`;
+const ATISKET = `https://atisket.pulsewidth.org.uk`;
 // change this to your preferred country codes
 const COUNTRIES = encodeURIComponent(`GB,US,DE`);
+
+// prevent JQuery conflicts, see http://wiki.greasespot.net/@grant
+this.$ = this.jQuery = jQuery.noConflict(true);
 
 function addAtisketLink(path) {
     let deezerReleaseId = getReleaseIdFromPath(path);
@@ -28,7 +31,7 @@ function addAtisketLink(path) {
     // remove any old instances of the button in the DOM
     $('#atisket').remove();
 
-    let atisketLink = `https://etc.marlonob.info/atisket/?preferred_countries=${COUNTRIES}&deez_id=${deezerReleaseId}`;
+    let atisketLink = `${ATISKET}/?preferred_countries=${COUNTRIES}&deez_id=${deezerReleaseId}`;
     let atisketButton = $(
         `<div id="atisket" class="toolbar-item">
             <a href="${atisketLink}" target="_blank">
