@@ -8,7 +8,7 @@
 // @downloadURL https://raw.github.com/atj/userscripts/master/deezer_atisket_link.user.js
 // @updateURL	https://raw.github.com/atj/userscripts/master/deezer_atisket_link.user.js
 // @include     http*://www.deezer.com/*
-// @require     https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js
+// @require     https://code.jquery.com/jquery-3.5.1.slim.min.js
 // @grant       none
 // ==/UserScript==
 
