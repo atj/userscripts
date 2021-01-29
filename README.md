@@ -24,3 +24,10 @@ Adds an "import ISRCs" link on MusicBrainz releases which have a Spotify URL.
 
 [![Source](https://github.com/jerone/UserScripts/blob/master/_resources/Source-button.png)](https://github.com/atj/userscripts/blob/master/mb_spotify_isrc_link.user.js)
 [![Install](https://raw.github.com/jerone/UserScripts/master/_resources/Install-button.png)](https://github.com/atj/userscripts/raw/master/mb_spotify_isrc_link.user.js)
+
+## MusicBrainz: Semi-automate adding "remixer" and "remix of" credits
+
+Adds links to the relationship editor that semi-automate adding "remixer" and "remix-of" credits to recordings.
+
+[![Source](https://github.com/jerone/UserScripts/blob/master/_resources/Source-button.png)](https://github.com/atj/userscripts/blob/master/mb_semi-automate_adding_remix_credits.user.js)
+[![Install](https://raw.github.com/jerone/UserScripts/master/_resources/Install-button.png)](https://github.com/atj/userscripts/raw/master/mb_semi-automate_adding_remix_credits.user.js)
