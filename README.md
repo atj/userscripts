@@ -1,6 +1,6 @@
 # atj's userscripts
 
-[![Build Status](https://travis-ci.com/atj/userscripts.svg?branch=master)](https://travis-ci.com/atj/userscripts)
+![Build Status](https://github.com/atj/userscripts/workflows/CI/badge.svg)
 
 All scripts are available under the MIT license.
 
