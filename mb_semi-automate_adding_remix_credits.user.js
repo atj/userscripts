@@ -1,14 +1,15 @@
 // ==UserScript==
 // @name        MusicBrainz: Semi-automate adding "remixer" and "remix of" credits
-// @version     2021.1.21.1
+// @version     2021.1.30.1
 // @description Adds links to the relationship editor that semi-automate adding "remixer" and "remix-of" credits
 // @author      atj
 // @license     MIT; https://opensource.org/licenses/MIT
 // @namespace   https://github.com/atj/userscripts
 // @downloadURL https://raw.github.com/atj/userscripts/master/mb_add_remix_credit_links.user.js
 // @updateURL   https://raw.github.com/atj/userscripts/master/mb_add_remix_credit_links.user.js
-// @match       http*://*.musicbrainz.org/release/*/edit-relationships
+// @match       *://*.musicbrainz.org/release/*/edit-relationships
 // @grant       none
+// @run-at      document-idle
 // ==/UserScript==
 
 /* Examples of track titles that this regex should match:
