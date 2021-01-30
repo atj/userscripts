@@ -28,6 +28,7 @@
  */
 const TitleRemixRegexp = /^\s*(.+)\s+\(\s*(.+)\s+(?:(?:re)?mix|re-?(?:[dr]ub|edit)|edit).*\)/i;
 
+const AddIconUri = 'https://staticbrainz.org/MB/add-384fe8d.png';
 // <option value="153">&nbsp;&nbsp;remixer</option>
 const RemixerOptionValue = '153';
 // <option value="230">&nbsp;&nbsp;remix of</option>
@@ -50,6 +51,13 @@ function setElementValue(element, value, event = 'input') {
     element.dispatchEvent(new Event(event, { bubbles: true }));
 }
 
+function addStyleElement() {
+    const style = document.createElement('style');
+    style.type = 'text/css';
+    document.head.appendChild(style);
+    style.appendChild(document.createTextNode('.add-rc { display: inline-block; }'));
+}
+
 function addLinksToRecordings() {
     const recordings = document.getElementsByClassName('recording');
 
@@ -69,31 +77,32 @@ function addLinksToRecordings() {
         let span = document.createElement('span');
         span.setAttribute('data-rel', 'remixer');
         if (linkTypes['remixer']) {
-            span.className = 'btn disabled';
+            span.className = 'add-rc btn disabled';
         } else {
-            span.className = 'btn';
+            span.className = 'add-rc btn';
             span.onclick = addCreditClickHandler;
             span.setAttribute('data-remixer', matches[2]);
         }
 
         span.innerHTML = `
-            <img class="bottom" src="https://staticbrainz.org/MB/add-384fe8d.png">
+            <img class="bottom" src="${AddIconUri}">
             Add "remixer" credit
         `;
         recording.appendChild(span);
+        recording.appendChild(document.createTextNode('\n'));
 
         span = document.createElement('span');
         span.setAttribute('data-rel', 'remix of');
         if (linkTypes['remix of']) {
-            span.className = 'btn disabled';
+            span.className = 'add-rc btn disabled';
         } else {
-            span.className = 'btn';
+            span.className = 'add-rc btn';
             span.onclick = addCreditClickHandler;
             span.setAttribute('data-remix-of', matches[1]);
         }
 
         span.innerHTML = `
-            <img class="bottom" src="https://staticbrainz.org/MB/add-384fe8d.png">
+            <img class="bottom" src="${AddIconUri}">
             Add "remix of" credit
         `;
         recording.appendChild(span);
@@ -152,5 +161,6 @@ function addCreditClickHandler(event) {
 
 // wait 500ms for the page to fully initialise
 window.setTimeout(function () {
+    addStyleElement();
     addLinksToRecordings();
 }, 500);
