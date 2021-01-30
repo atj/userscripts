@@ -58,7 +58,7 @@ function addStyleElement() {
     style.appendChild(document.createTextNode('.add-rc { display: inline-block; }'));
 }
 
-function addLinksToRecordings() {
+function addRemixCreditLinks() {
     const recordings = document.getElementsByClassName('recording');
 
     for (const recording of recordings) {
@@ -75,12 +75,11 @@ function addLinksToRecordings() {
         }
 
         let span = document.createElement('span');
-        span.setAttribute('data-rel', 'remixer');
         if (linkTypes['remixer']) {
             span.className = 'add-rc btn disabled';
         } else {
             span.className = 'add-rc btn';
-            span.onclick = addCreditClickHandler;
+            span.onclick = addRemixCreditClickHandler;
             span.setAttribute('data-remixer', matches[2]);
         }
 
@@ -92,12 +91,11 @@ function addLinksToRecordings() {
         recording.appendChild(document.createTextNode('\n'));
 
         span = document.createElement('span');
-        span.setAttribute('data-rel', 'remix of');
         if (linkTypes['remix of']) {
             span.className = 'add-rc btn disabled';
         } else {
             span.className = 'add-rc btn';
-            span.onclick = addCreditClickHandler;
+            span.onclick = addRemixCreditClickHandler;
             span.setAttribute('data-remix-of', matches[1]);
         }
 
@@ -109,18 +107,17 @@ function addLinksToRecordings() {
     }
 }
 
-function addCreditClickHandler(event) {
+function addRemixCreditClickHandler(event) {
     event.preventDefault();
 
     const recording = this.parentElement;
-    const relType = this.getAttribute('data-rel');
+    const remixer = this.getAttribute('data-remixer');
+    const remixOf = this.getAttribute('data-remix-of');
 
     const addRel = recording.getElementsByClassName('add-rel')[0];
     addRel.click();
 
-    if (relType === 'remixer') {
-        const remixer = this.getAttribute('data-remixer');
-
+    if (remixer) {
         // wait 250ms for the dialog to be added to the DOM
         window.setTimeout(function () {
             const dialog = document.getElementById('dialog');
@@ -134,9 +131,7 @@ function addCreditClickHandler(event) {
                 name.focus();
             }
         }, 250);
-    } else if (relType === 'remix of') {
-        const remixOf = this.getAttribute('data-remix-of');
-
+    } else if (remixOf) {
         // wait 250ms for the dialog to be added to the DOM
         window.setTimeout(function () {
             const dialog = document.getElementById('dialog');
@@ -162,5 +157,5 @@ function addCreditClickHandler(event) {
 // wait 500ms for the page to fully initialise
 window.setTimeout(function () {
     addStyleElement();
-    addLinksToRecordings();
+    addRemixCreditLinks();
 }, 500);
