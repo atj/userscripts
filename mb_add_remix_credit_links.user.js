@@ -37,10 +37,17 @@ const RemixOfOptionValue = '230';
 // This code is based on:
 // https://stackoverflow.com/questions/42795059/programmatically-fill-reactjs-form
 function setElementValue(element, value, event = 'input') {
-    const propertyDescriptor = Object.getOwnPropertyDescriptor(element, 'value');
-    const valueSetter = propertyDescriptor === undefined ? null : propertyDescriptor.set;
+    const propertyDescriptor = Object.getOwnPropertyDescriptor(
+        element,
+        'value'
+    );
+    const valueSetter =
+        propertyDescriptor === undefined ? null : propertyDescriptor.set;
     const prototype = Object.getPrototypeOf(element);
-    const prototypeValueSetter = Object.getOwnPropertyDescriptor(prototype, 'value').set;
+    const prototypeValueSetter = Object.getOwnPropertyDescriptor(
+        prototype,
+        'value'
+    ).set;
 
     if (prototypeValueSetter && valueSetter !== prototypeValueSetter) {
         prototypeValueSetter.call(element, value);
@@ -55,12 +62,18 @@ function addStyleElement() {
     const style = document.createElement('style');
     style.type = 'text/css';
     document.head.appendChild(style);
-    style.appendChild(document.createTextNode('.add-rc { display: inline-block; }'));
+    style.appendChild(
+        document.createTextNode('.add-rc { display: inline-block; }')
+    );
 }
 
 function addRemixCreditLinks() {
     const recordings = document.getElementsByClassName('recording');
-    const releaseArtists = Array.from(document.getElementsByClassName('subheader')[0].getElementsByTagName('bdi'))
+    const releaseArtists = Array.from(
+        document
+            .getElementsByClassName('subheader')[0]
+            .getElementsByTagName('bdi')
+    )
         .slice(0, -1) // slice "see all versions of this release"
         .map(bdi => bdi.innerText);
 
@@ -97,7 +110,11 @@ function addRemixCreditLinks() {
         if (linkTypes['remix of']) {
             span.className = 'add-rc btn disabled';
         } else {
-            let trackArtists = Array.from(recording.getElementsByTagName('span')[1].getElementsByTagName('bdi')).map(bdi => bdi.innerText);
+            let trackArtists = Array.from(
+                recording
+                    .getElementsByTagName('span')[1]
+                    .getElementsByTagName('bdi')
+            ).map(bdi => bdi.innerText);
             if (!trackArtists.length) {
                 trackArtists = releaseArtists;
             }
