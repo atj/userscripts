@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        Add Spotify ISRC link to release pages
-// @version     2020.12.26.1
+// @version     2021.1.30.1
 // @description Adds an "import ISRCs" link to release pages with a Spotify URL
 // @author      atj
 // @license     MIT; https://opensource.org/licenses/MIT
@@ -8,8 +8,9 @@
 // @downloadURL https://raw.github.com/atj/userscripts/master/mb_spotify_isrc_link.user.js
 // @updateURL	https://raw.github.com/atj/userscripts/master/mb_spotify_isrc_link.user.js
 // @require     https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js
-// @match       http*://*.musicbrainz.org/release/*
+// @match       *://*.musicbrainz.org/release/*
 // @grant       none
+// @run-at      document-idle
 // ==/UserScript==
 
 // prevent JQuery conflicts, see http://wiki.greasespot.net/@grant
