@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        MusicBrainz: Semi-automate adding "remixer" and "remix of" credits
-// @version     2021.1.30.2
+// @version     2021.1.30.3
 // @description Adds links to the relationship editor that semi-automate adding "remixer" and "remix-of" credits
 // @author      atj
 // @license     MIT; https://opensource.org/licenses/MIT
@@ -60,6 +60,9 @@ function addStyleElement() {
 
 function addRemixCreditLinks() {
     const recordings = document.getElementsByClassName('recording');
+    const releaseArtists = Array.from(document.getElementsByClassName('subheader')[0].getElementsByTagName('bdi'))
+        .slice(0, -1) // slice "see all versions of this release"
+        .map(bdi => bdi.innerText);
 
     for (const recording of recordings) {
         const title = recording.getElementsByTagName('bdi')[0].innerText;
@@ -94,9 +97,16 @@ function addRemixCreditLinks() {
         if (linkTypes['remix of']) {
             span.className = 'add-rc btn disabled';
         } else {
+            let trackArtists = Array.from(recording.getElementsByTagName('span')[1].getElementsByTagName('bdi')).map(bdi => bdi.innerText);
+            if (!trackArtists.length) {
+                trackArtists = releaseArtists;
+            }
+            // recording search will be pre-filled with title and artists to improve the results
+            const recordingQuery = `${matches[1]} ${trackArtists.join(' ')}`;
+
             span.className = 'add-rc btn';
             span.onclick = addRemixCreditClickHandler;
-            span.setAttribute('data-remix-of', matches[1]);
+            span.setAttribute('data-remix-of', recordingQuery);
         }
 
         span.innerHTML = `
