@@ -151,6 +151,6 @@ function addCreditClickHandler(event) {
 }
 
 // wait 500ms for the page to fully initialise
-window.addEventListener('load', function () {
-    window.setTimeout(addLinksToRecordings, 500);
-});
+window.setTimeout(function () {
+    addLinksToRecordings();
+}, 500);
