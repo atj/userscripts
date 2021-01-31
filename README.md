@@ -31,3 +31,17 @@ Adds links to the relationship editor that semi-automate adding "remixer" and "r
 
 [![Source](https://github.com/jerone/UserScripts/blob/master/_resources/Source-button.png)](https://github.com/atj/userscripts/blob/master/mb_add_remix_credit_links.user.js)
 [![Install](https://raw.github.com/jerone/UserScripts/master/_resources/Install-button.png)](https://github.com/atj/userscripts/raw/master/mb_add_remix_credit_links.user.js)
+
+## MusicBrainz: Disable browser autofill on the tags field
+
+Disables browser autofill functionality on the tags input field.
+
+[![Source](https://github.com/jerone/UserScripts/blob/master/_resources/Source-button.png)](https://github.com/atj/userscripts/blob/master/mb_disable_tags_field_browser_autofill.user.js)
+[![Install](https://raw.github.com/jerone/UserScripts/master/_resources/Install-button.png)](https://github.com/atj/userscripts/raw/master/mb_disable_tags_field_browser_autofill.user.js)
+
+## MusicBrainz: Disable the tags field genre autocompletion
+
+Disables the tags input field genre autocompletion functionality.
+
+[![Source](https://github.com/jerone/UserScripts/blob/master/_resources/Source-button.png)](https://github.com/atj/userscripts/blob/master/mb_disable_tags_field_genre_autocomplete.user.js)
+[![Install](https://raw.github.com/jerone/UserScripts/master/_resources/Install-button.png)](https://github.com/atj/userscripts/raw/master/mb_disable_tags_field_genre_autocomplete.user.js)
