@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        Add a-tisket import link to Deezer
-// @version     2021.1.30.1
+// @version     2021.5.6.1
 // @description Adds a link to Deezer to import a release into MusicBrainz via a-tisket
 // @author      atj
 // @license     MIT; https://opensource.org/licenses/MIT
@@ -36,8 +36,8 @@ function addAtisketLink(path) {
     let atisketButton = $(
         `<div id="atisket" class="toolbar-item">
             <a href="${atisketLink}" target="_blank">
-            <button class="root-0-3-1 containedSecondary-0-3-10">
-                <span class="label-0-3-2">
+            <button class="kAKwiq" style="padding:0px 16px;">
+                <span class="kCFWh">
                     → a-tisket
                 </span>
             </button>
