@@ -26,7 +26,8 @@
  * Black Truffles in the Snow (Mike Huckaby's S Y N T H remix)
  * Detroit Swindle - Yes, No, Maybe (Sterac Electronics instrumental remix)
  */
-const TitleRemixRegexp = /^\s*(.+)\s+\(\s*(.+)\s+(?:(?:re)?mix|re-?(?:[dr]ub|edit)|edit).*\)/i;
+const TitleRemixRegexp =
+    /^\s*(.+)\s+\(\s*(.+)\s+(?:(?:re)?mix|re-?(?:[dr]ub|edit)|edit).*\)/i;
 
 const AddIconUri = 'https://staticbrainz.org/MB/add-384fe8d.png';
 // <option value="153">&nbsp;&nbsp;remixer</option>
