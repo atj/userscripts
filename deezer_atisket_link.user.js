@@ -67,7 +67,7 @@ function getReleaseIdFromPath(path) {
         let path = arguments[2];
         window.setTimeout(function () {
             addAtisketLink(path);
-        }, 500);
+        }, 1000);
 
         return pushState.apply(this, arguments);
     };
@@ -75,7 +75,7 @@ function getReleaseIdFromPath(path) {
     window.addEventListener('popstate', function () {
         window.setTimeout(function () {
             addAtisketLink(window.location.pathname);
-        }, 500);
+        }, 1000);
     });
 })();
 
@@ -83,5 +83,5 @@ $(document).ready(function () {
     // allow 1 second for the Deezer SPA to initialize
     window.setTimeout(function () {
         addAtisketLink(window.location.pathname);
-    }, 1000);
+    }, 1500);
 });
