@@ -36,9 +36,9 @@ function addAtisketLink(path) {
     let atisketButton = $(
         `<div id="atisket" class="toolbar-item">
             <a href="${atisketLink}" target="_blank">
-            <button class="kAKwiq" style="padding:0px 16px;">
-                <span class="kCFWh">
-                    → a-tisket
+            <button class="lboDsW" style="padding:0px 16px;">
+                <span class="jNjOVd">
+                    ➞ a-tisket
                 </span>
             </button>
             </a>
