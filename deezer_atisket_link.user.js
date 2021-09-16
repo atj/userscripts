@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        Add a-tisket import link to Deezer
-// @version     2021.5.6.1
+// @version     2021.9.16.1
 // @description Adds a link to Deezer to import a release into MusicBrainz via a-tisket
 // @author      atj
 // @license     MIT; https://opensource.org/licenses/MIT
