@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        Add a-tisket import link to Spotify
-// @version     2021.1.30.1
+// @version     2021.10.04.1
 // @description Adds a link to Spotify to import a release into MusicBrainz via a-tisket
 // @author      atj
 // @license     MIT; https://opensource.org/licenses/MIT
@@ -34,14 +34,14 @@ function addAtisketLink(path) {
 
     let atisketLink = `${ATISKET}/?preferred_countries=${COUNTRIES}&spf_id=${spotifyReleaseId}`;
     let atisketButton = $(
-        `<button type="button" id="atisket" class="_07bed3a434fa59aa1852a431bf2e19cb-scss" style="padding:6px;border:1px solid;border-radius:5px;">
+        `<button type="button" id="atisket" class="B77TpDT6WaoYUqQxvy4Z" style="padding:6px;border:1px solid;border-radius:5px;">
             <a href="${atisketLink}" target="_blank">
                 → a-tisket
             </a>
         </button>`
     ).hide();
 
-    $('button[title="More"]').first().before(atisketButton);
+    $('button[aria-label="More"]').first().before(atisketButton);
     atisketButton.show();
 }
 
