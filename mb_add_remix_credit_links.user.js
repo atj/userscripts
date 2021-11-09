@@ -29,7 +29,7 @@
 const TitleRemixRegexp =
     /^\s*(.+)\s+\(\s*(.+)\s+(?:(?:re)?mix|re-?(?:[dr]ub|edit)|edit).*\)/i;
 
-const AddIconUri = 'https://staticbrainz.org/MB/add-384fe8d.png';
+const AddIconUri = 'https://staticbrainz.org/MB/add-e585eab.png';
 // <option value="153">&nbsp;&nbsp;remixer</option>
 const RemixerOptionValue = '153';
 // <option value="230">&nbsp;&nbsp;remix of</option>
