@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        MusicBrainz: Semi-automate adding "remixer" and "remix of" credits
-// @version     2021.1.30.3
+// @version     2021.11.09.1
 // @description Adds links to the relationship editor that semi-automate adding "remixer" and "remix-of" credits
 // @author      atj
 // @license     MIT; https://opensource.org/licenses/MIT
