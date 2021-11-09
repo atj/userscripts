@@ -18,16 +18,17 @@
  * Earth Is the Place (FK edit)
  * Right by Your Side (Restless Soul Aquarius mix)
  * Animal (DJ Martin & DJ Homes' Primordial Jungle mix)
- * HNNY - Hotline Riddim (Jacques Renault edit)
+ * Hotline Riddim (Jacques Renault edit)
  * Master Boogie Song & Dance - Roll the Joint (Joey Negro re-edit)
  * I Got It (Kenny Dope edit)
  * Manzel - It's Over Now (MAW remix dub)
  * Open Your Eyes (New Phunk Theory's Little Green dub)
  * Black Truffles in the Snow (Mike Huckaby's S Y N T H remix)
- * Detroit Swindle - Yes, No, Maybe (Sterac Electronics instrumental remix)
+ * Yes, No, Maybe (Sterac Electronics instrumental remix)
+ * The Rainbow Song (Crackazat rework)
  */
 const TitleRemixRegexp =
-    /^\s*(.+)\s+\(\s*(.+)\s+(?:(?:re)?mix|re-?(?:[dr]ub|edit)|edit).*\)/i;
+    /^\s*(.+)\s+\(\s*(.+)\s+(?:(?:re)?mix|re-?(?:[dr]ub|edit|work)|edit).*\)/i;
 
 const AddIconUri = 'https://staticbrainz.org/MB/add-e585eab.png';
 // <option value="153">&nbsp;&nbsp;remixer</option>
