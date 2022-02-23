@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        Add a-tisket import link to Deezer
-// @version     2021.12.17.1
+// @version     2022.02.23.1
 // @description Adds a link to Deezer to import a release into MusicBrainz via a-tisket
 // @author      atj
 // @license     MIT; https://opensource.org/licenses/MIT
@@ -50,7 +50,7 @@ function addAtisketLink(path) {
 }
 
 function getReleaseIdFromPath(path) {
-    let matchData = path.match(/^\/[a-z]+\/album\/([0-9]+)[^/]*$/i);
+    let matchData = path.match(/^\/[a-z]+\/album\/([0-9]+)/i);
 
     if (matchData !== null) {
         return matchData[1];
