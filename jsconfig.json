@@ -1,0 +1,15 @@
+{
+	"compilerOptions": {
+		"lib": [
+			"dom",
+			"esnext"
+		],
+		"resolveJsonModule": true
+	},
+	"typeAcquisition": {
+		"include": [
+			"greasemonkey",
+			"jquery"
+		]
+	}
+}
