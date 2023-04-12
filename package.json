@@ -1,33 +1,32 @@
 {
-    "name": "userscripts",
-    "version": "0.1.0",
-    "description": "Various useful userscripts",
-    "main": "index.js",
-    "scripts": {
-        "prettier:format": "prettier --write \"{,**/}*.{js,json,md}\"",
-        "lint": "npm run eslint",
-        "lint-fix": "npm run eslint -- --fix",
-        "eslint": "eslint ."
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/atj/userscripts.git"
-    },
+    "name": "@atj/userscripts",
+    "version": "0.5.0",
+    "author": "Adam James <atj@pulsewidth.org.uk>",
+    "description": "Various MusicBrainz related userscripts",
     "keywords": [
         "musicbrainz",
         "userscripts"
     ],
-    "author": "Adam James <atj@pulsewidth.org.uk>",
-    "license": "MIT",
+    "homepage": "https://github.com/atj/userscripts",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/atj/userscripts.git"
+    },
     "bugs": {
         "url": "https://github.com/atj/userscripts/issues"
     },
-    "homepage": "https://github.com/atj/userscripts",
+    "license": "MIT",
+    "type": "module",
+    "scripts": {
+        "build": "node tools/build.js"
+    },
     "devDependencies": {
-        "eslint": "^8.38.0",
-        "eslint-config-prettier": "^8.8.0",
-        "eslint-plugin-import": "^2.27.5",
-        "eslint-plugin-prettier": "^4.2.1",
-        "prettier": "^2.8.7"
+        "@rollup/plugin-image": "^3.0.2",
+	"@rollup/plugin-node-resolve": "^15.0.1",
+	"@rollup/plugin-strip": "^3.0.2",
+        "extract-comments": "^1.1.0",
+	"rollup": "^3.13.0",
+	"rollup-plugin-ignore": "^1.0.10",
+	"terser": "^5.14.2"
     }
 }
