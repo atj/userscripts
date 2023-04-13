@@ -17,10 +17,10 @@ jobs:
       - name: Setup NodeJS
         uses: actions/setup-node@v3
         with:
-          node-version: 14
+          node-version: 16
 
       - name: Install dependencies
         run: npm install
 
       - name: Lint code
-        run: npm run lint
+        run: npm run eslint
