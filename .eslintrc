@@ -3,9 +3,20 @@
         "browser": true,
         "es6": true,
         "greasemonkey": true,
-        "jquery": true
+        "jquery": true,
+        "node": true
     },
-    "extends": ["eslint:recommended", "plugin:prettier/recommended"],
+    "extends": [
+        "eslint:recommended",
+        "plugin:prettier/recommended"
+    ],
+    "ignorePatterns": [
+        "dist/*.js"
+    ],
+    "parserOptions": {
+        "ecmaVersion": 2020,
+        "sourceType": "module"
+    },
     "rules": {
         "prettier/prettier": "error",
         "prefer-template": "error",
