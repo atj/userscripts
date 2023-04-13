@@ -3,11 +3,13 @@
     "version": "0.1.0",
     "description": "Various useful userscripts",
     "main": "index.js",
+    "type": "module",
     "scripts": {
         "prettier:format": "prettier --write \"{,**/}*.{js,json,md}\"",
         "lint": "npm run eslint",
         "lint-fix": "npm run eslint -- --fix",
-        "eslint": "eslint ."
+        "eslint": "eslint .",
+        "build": "node build.js"
     },
     "repository": {
         "type": "git",
@@ -25,10 +27,17 @@
     "homepage": "https://github.com/atj/userscripts",
     "devDependencies": {
         "@kellnerd/musicbrainz-scripts": "github:kellnerd/musicbrainz-scripts",
+        "@rollup/plugin-image": "^3.0.2",
+        "@rollup/plugin-node-resolve": "^15.0.2",
+        "@rollup/plugin-strip": "^3.0.2",
         "eslint": "^8.38.0",
         "eslint-config-prettier": "^8.8.0",
         "eslint-plugin-import": "^2.27.5",
         "eslint-plugin-prettier": "^4.2.1",
-        "prettier": "^2.8.7"
+        "extract-comments": "^1.1.0",
+        "prettier": "^2.8.7",
+        "rollup": "^3.20.2",
+        "rollup-plugin-ignore": "^1.0.10",
+        "terser": "^5.16.9"
     }
 }
