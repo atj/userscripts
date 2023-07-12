@@ -11,14 +11,23 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.actor == 'dependabot[bot]' }}
     steps:
-      - name: Dependabot metadata
+      - name: Fetch Dependabot metadata
         id: metadata
         uses: dependabot/fetch-metadata@v1.5.1
         with:
-          github-token: ${{ secrets.GH_TOKEN }}
-      - name: Enable auto-merge for Dependabot PRs
-        if: ${{ steps.metadata.outputs.update-type == 'version-update:semver-patch' || steps.metadata.outputs.update-type == 'version-update:semver-minor' }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Auto-merge patch and minor version Dependabot PRs
+        if: ${{ steps.dependabot-metadata.outputs.update-type != 'version-update:semver-major' }}
         run: gh pr merge --auto --merge "$PR_URL"
         env:
           PR_URL: ${{ github.event.pull_request.html_url }}
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Add comment to major version Dependabot PRs
+        if: ${{ steps.dependabot-metadata.outputs.update-type == 'version-update:semver-major' }}
+        run: |
+          gh pr comment $PR_URL --body "This PR was not auto-merged because it includes a major version update."
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
