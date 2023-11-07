@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        Add a-tisket import link to Deezer
-// @version     2022.09.09.1
+// @version     2023.11.07.1
 // @description Adds a link to Deezer to import a release into MusicBrainz via a-tisket
 // @author      atj
 // @license     MIT; https://opensource.org/licenses/MIT
@@ -34,7 +34,7 @@ function addAtisketLink(path) {
 
     let atisketLink = `${ATISKET}/?preferred_countries=${COUNTRIES}&deez_id=${deezerReleaseId}`;
     let atisketButton = $(
-        `<div id="atisket" class="aLCv2">
+        `<div id="atisket" class="css-1xdm5rr">
             <a href="${atisketLink}" target="_blank">
             <button class="css-v1ei6r" style="padding:0px 16px;">
                 <span>
