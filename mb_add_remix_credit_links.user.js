@@ -28,7 +28,7 @@
  * The Rainbow Song (Crackazat rework)
  */
 const TitleRemixRegexp =
-    /^\s*(.+)\s+\(\s*(.+)\s+(?:(?:re)?mix|re-?(?:[dr]ub|edit|work)|edit).*\)/i;
+    /^\s*(.+)\s+\(\s*(.+)\s+(?:(?:re-?)?(?:[dr]ub|edit|mix)|re-?work).*\)/i;
 
 // This code is based on:
 // https://stackoverflow.com/questions/42795059/programmatically-fill-reactjs-form
