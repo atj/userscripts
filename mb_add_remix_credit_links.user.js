@@ -54,6 +54,17 @@ function setElementValue(element, value, event = 'input') {
     element.dispatchEvent(new Event(event, { bubbles: true }));
 }
 
+function tabToConfirmFirstOption(element) {
+    const event = new KeyboardEvent('keydown', {
+        key: 'Tab',
+        keyCode: 9,
+        which: 9,
+        bubbles: true,
+        cancelable: true,
+    });
+    element.dispatchEvent(event);
+}
+
 function addRemixCreditLinks() {
     const recordings = document.querySelectorAll('td.recording');
     const releaseArtists = Array.from(
@@ -139,13 +150,13 @@ function addRemixCreditClickHandler(event) {
 
             const linkType = dialog.querySelector('input.relationship-type');
             setElementValue(linkType, 'remixed / remixer');
+            tabToConfirmFirstOption(linkType);
 
             const name = dialog.querySelector('input.relationship-target');
             if (remixer) {
                 setElementValue(name, remixer);
-            } else {
-                name.focus();
             }
+            name.focus();
         }, 250);
     } else if (remixOf) {
         // wait 250ms for the dialog to be added to the DOM
@@ -158,13 +169,13 @@ function addRemixCreditClickHandler(event) {
             window.setTimeout(function () {
                 const linkType = dialog.querySelector('input.relationship-type');
                 setElementValue(linkType, 'remix of / has remixes');
+                tabToConfirmFirstOption(linkType);
 
                 const name = dialog.querySelector('input.relationship-target');
                 if (remixOf) {
                     setElementValue(name, remixOf);
-                } else {
-                    name.focus();
                 }
+                name.focus();
             }, 250);
         }, 250);
     }
