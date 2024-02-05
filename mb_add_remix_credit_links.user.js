@@ -30,8 +30,6 @@
 const TitleRemixRegexp =
     /^\s*(.+)\s+\(\s*(.+)\s+(?:(?:re)?mix|re-?(?:[dr]ub|edit|work)|edit).*\)/i;
 
-const AddIconUri = 'https://staticbrainz.org/MB/add-e585eab.png';
-
 // This code is based on:
 // https://stackoverflow.com/questions/42795059/programmatically-fill-reactjs-form
 function setElementValue(element, value, event = 'input') {
@@ -54,15 +52,6 @@ function setElementValue(element, value, event = 'input') {
     }
 
     element.dispatchEvent(new Event(event, { bubbles: true }));
-}
-
-function addStyleElement() {
-    const style = document.createElement('style');
-    style.type = 'text/css';
-    document.head.appendChild(style);
-    style.appendChild(
-        document.createTextNode('.add-rc { display: inline-block; }')
-    );
 }
 
 function addRemixCreditLinks() {
@@ -88,25 +77,24 @@ function addRemixCreditLinks() {
             linkTypes[link.innerText] = 1;
         }
 
-        let span = document.createElement('span');
+        let button = document.createElement('button');
         if (linkTypes['remixer:']) {
-            span.className = 'add-rc btn disabled';
+            button.className = 'add-item with-label btn disabled';
         } else {
-            span.className = 'add-rc btn';
-            span.onclick = addRemixCreditClickHandler;
-            span.setAttribute('data-remixer', matches[2]);
+            button.className = 'add-item with-label';
+            button.onclick = addRemixCreditClickHandler;
+            button.setAttribute('data-remixer', matches[2]);
         }
 
-        span.innerHTML = `
-            <img class="bottom" src="${AddIconUri}">
+        button.innerHTML = `
             Add "remixer" credit
         `;
-        recording.appendChild(span);
+        recording.appendChild(button);
         recording.appendChild(document.createTextNode('\n'));
 
-        span = document.createElement('span');
+        button = document.createElement('button');
         if (linkTypes['remix of:']) {
-            span.className = 'add-rc btn disabled';
+            button.className = 'add-item with-label btn disabled';
         } else {
             const trackArtistElement = recording
                     .getElementsByTagName('span')[1];
@@ -120,16 +108,15 @@ function addRemixCreditLinks() {
             // recording search will be pre-filled with title and artists to improve the results
             const recordingQuery = `${matches[1]} ${trackArtists.join(' ')}`;
 
-            span.className = 'add-rc btn';
-            span.onclick = addRemixCreditClickHandler;
-            span.setAttribute('data-remix-of', recordingQuery);
+            button.className = 'add-item with-label';
+            button.onclick = addRemixCreditClickHandler;
+            button.setAttribute('data-remix-of', recordingQuery);
         }
 
-        span.innerHTML = `
-            <img class="bottom" src="${AddIconUri}">
+        button.innerHTML = `
             Add "remix of" credit
         `;
-        recording.appendChild(span);
+        recording.appendChild(button);
     }
 }
 
@@ -185,6 +172,5 @@ function addRemixCreditClickHandler(event) {
 
 // wait 500ms for the page to fully initialise
 window.setTimeout(function () {
-    addStyleElement();
     addRemixCreditLinks();
 }, 500);
