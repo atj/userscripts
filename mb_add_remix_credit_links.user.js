@@ -31,10 +31,6 @@ const TitleRemixRegexp =
     /^\s*(.+)\s+\(\s*(.+)\s+(?:(?:re)?mix|re-?(?:[dr]ub|edit|work)|edit).*\)/i;
 
 const AddIconUri = 'https://staticbrainz.org/MB/add-e585eab.png';
-// <option value="153">&nbsp;&nbsp;remixer</option>
-const RemixerOptionValue = '153';
-// <option value="230">&nbsp;&nbsp;remix of</option>
-const RemixOfOptionValue = '230';
 
 // This code is based on:
 // https://stackoverflow.com/questions/42795059/programmatically-fill-reactjs-form
@@ -70,7 +66,7 @@ function addStyleElement() {
 }
 
 function addRemixCreditLinks() {
-    const recordings = document.getElementsByClassName('recording');
+    const recordings = document.querySelectorAll('td.recording');
     const releaseArtists = Array.from(
         document
             .getElementsByClassName('subheader')[0]
@@ -93,7 +89,7 @@ function addRemixCreditLinks() {
         }
 
         let span = document.createElement('span');
-        if (linkTypes['remixer']) {
+        if (linkTypes['remixer:']) {
             span.className = 'add-rc btn disabled';
         } else {
             span.className = 'add-rc btn';
@@ -109,14 +105,15 @@ function addRemixCreditLinks() {
         recording.appendChild(document.createTextNode('\n'));
 
         span = document.createElement('span');
-        if (linkTypes['remix of']) {
+        if (linkTypes['remix of:']) {
             span.className = 'add-rc btn disabled';
         } else {
-            let trackArtists = Array.from(
-                recording
-                    .getElementsByTagName('span')[1]
-                    .getElementsByTagName('bdi')
-            ).map(bdi => bdi.innerText);
+            const trackArtistElement = recording
+                    .getElementsByTagName('span')[1];
+
+            let trackArtists = trackArtistElement ? Array.from(
+                trackArtistElement.getElementsByTagName('bdi')
+            ).map(bdi => bdi.innerText) : [];
             if (!trackArtists.length) {
                 trackArtists = releaseArtists;
             }
@@ -143,17 +140,20 @@ function addRemixCreditClickHandler(event) {
     const remixer = this.getAttribute('data-remixer');
     const remixOf = this.getAttribute('data-remix-of');
 
-    const addRel = recording.getElementsByClassName('add-rel')[0];
+    const addRel = recording.querySelector('button.add-relationship');
     addRel.click();
 
     if (remixer) {
         // wait 250ms for the dialog to be added to the DOM
         window.setTimeout(function () {
-            const dialog = document.getElementById('dialog');
-            const linkType = dialog.getElementsByClassName('link-type')[0];
-            setElementValue(linkType, RemixerOptionValue, 'change');
+            const dialog = document.getElementById('add-relationship-dialog');
+            const entityType = dialog.querySelector('select.entity-type');
+            setElementValue(entityType, 'artist', 'change');
 
-            const name = dialog.getElementsByClassName('name')[0];
+            const linkType = dialog.querySelector('input.relationship-type');
+            setElementValue(linkType, 'remixed / remixer');
+
+            const name = dialog.querySelector('input.relationship-target');
             if (remixer) {
                 setElementValue(name, remixer);
             } else {
@@ -163,16 +163,16 @@ function addRemixCreditClickHandler(event) {
     } else if (remixOf) {
         // wait 250ms for the dialog to be added to the DOM
         window.setTimeout(function () {
-            const dialog = document.getElementById('dialog');
-            const entityType = dialog.getElementsByClassName('entity-type')[0];
+            const dialog = document.getElementById('add-relationship-dialog');
+            const entityType = dialog.querySelector('select.entity-type');
             setElementValue(entityType, 'recording', 'change');
 
             // wait another 250ms for the link-type select options to be updated
             window.setTimeout(function () {
-                const linkType = dialog.getElementsByClassName('link-type')[0];
-                setElementValue(linkType, RemixOfOptionValue, 'change');
+                const linkType = dialog.querySelector('input.relationship-type');
+                setElementValue(linkType, 'remix of / has remixes');
 
-                const name = dialog.getElementsByClassName('name')[0];
+                const name = dialog.querySelector('input.relationship-target');
                 if (remixOf) {
                     setElementValue(name, remixOf);
                 } else {
