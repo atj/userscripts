@@ -171,6 +171,9 @@ function addRemixCreditClickHandler(event) {
 }
 
 // wait 500ms for the page to fully initialise
-window.setTimeout(function () {
-    addRemixCreditLinks();
+const intervalId = window.setInterval(function () {
+    if (!document.querySelector('.loading-message')) {
+        window.clearInterval(intervalId);
+        addRemixCreditLinks();
+    }
 }, 500);
