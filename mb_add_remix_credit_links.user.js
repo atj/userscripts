@@ -153,10 +153,14 @@ function addRemixCreditClickHandler(event) {
             tabToConfirmFirstOption(linkType);
 
             const name = dialog.querySelector('input.relationship-target');
-            if (remixer) {
-                setElementValue(name, remixer);
+            setElementValue(name, remixer);
+            const search = name.parentElement.querySelector('button.search');
+            if (search) {
+                window.setTimeout(function() {
+                    search.click();
+                    name.focus();
+                }, 100);
             }
-            name.focus();
         }, 250);
     } else if (remixOf) {
         // wait 250ms for the dialog to be added to the DOM
@@ -172,10 +176,14 @@ function addRemixCreditClickHandler(event) {
                 tabToConfirmFirstOption(linkType);
 
                 const name = dialog.querySelector('input.relationship-target');
-                if (remixOf) {
-                    setElementValue(name, remixOf);
+                setElementValue(name, remixOf);
+                const search = name.parentElement.querySelector('button.search');
+                if (search) {
+                    window.setTimeout(function() {
+                        search.click();
+                        name.focus();
+                    }, 100);
                 }
-                name.focus();
             }, 250);
         }, 250);
     }
