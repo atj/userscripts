@@ -28,13 +28,7 @@
  * The Rainbow Song (Crackazat rework)
  */
 const TitleRemixRegexp =
-    /^\s*(.+)\s+\(\s*(.+)\s+(?:(?:re)?mix|re-?(?:[dr]ub|edit|work)|edit).*\)/i;
-
-const AddIconUri = 'https://staticbrainz.org/MB/add-e585eab.png';
-// <option value="153">&nbsp;&nbsp;remixer</option>
-const RemixerOptionValue = '153';
-// <option value="230">&nbsp;&nbsp;remix of</option>
-const RemixOfOptionValue = '230';
+    /^\s*(.+)\s+\(\s*(.+)\s+(?:(?:re-?)?(?:[dr]ub|edit|mix)|re-?work).*\)/i;
 
 // This code is based on:
 // https://stackoverflow.com/questions/42795059/programmatically-fill-reactjs-form
@@ -60,17 +54,19 @@ function setElementValue(element, value, event = 'input') {
     element.dispatchEvent(new Event(event, { bubbles: true }));
 }
 
-function addStyleElement() {
-    const style = document.createElement('style');
-    style.type = 'text/css';
-    document.head.appendChild(style);
-    style.appendChild(
-        document.createTextNode('.add-rc { display: inline-block; }')
-    );
+function tabToConfirmFirstOption(element) {
+    const event = new KeyboardEvent('keydown', {
+        key: 'Tab',
+        keyCode: 9,
+        which: 9,
+        bubbles: true,
+        cancelable: true,
+    });
+    element.dispatchEvent(event);
 }
 
 function addRemixCreditLinks() {
-    const recordings = document.getElementsByClassName('recording');
+    const recordings = document.querySelectorAll('td.recording');
     const releaseArtists = Array.from(
         document
             .getElementsByClassName('subheader')[0]
@@ -92,47 +88,46 @@ function addRemixCreditLinks() {
             linkTypes[link.innerText] = 1;
         }
 
-        let span = document.createElement('span');
-        if (linkTypes['remixer']) {
-            span.className = 'add-rc btn disabled';
+        let button = document.createElement('button');
+        if (linkTypes['remixer:']) {
+            button.className = 'add-item with-label btn disabled';
         } else {
-            span.className = 'add-rc btn';
-            span.onclick = addRemixCreditClickHandler;
-            span.setAttribute('data-remixer', matches[2]);
+            button.className = 'add-item with-label';
+            button.onclick = addRemixCreditClickHandler;
+            button.setAttribute('data-remixer', matches[2]);
         }
 
-        span.innerHTML = `
-            <img class="bottom" src="${AddIconUri}">
+        button.innerHTML = `
             Add "remixer" credit
         `;
-        recording.appendChild(span);
+        recording.appendChild(button);
         recording.appendChild(document.createTextNode('\n'));
 
-        span = document.createElement('span');
-        if (linkTypes['remix of']) {
-            span.className = 'add-rc btn disabled';
+        button = document.createElement('button');
+        if (linkTypes['remix of:']) {
+            button.className = 'add-item with-label btn disabled';
         } else {
-            let trackArtists = Array.from(
-                recording
-                    .getElementsByTagName('span')[1]
-                    .getElementsByTagName('bdi')
-            ).map(bdi => bdi.innerText);
+            const trackArtistElement = recording
+                    .getElementsByTagName('span')[1];
+
+            let trackArtists = trackArtistElement ? Array.from(
+                trackArtistElement.getElementsByTagName('bdi')
+            ).map(bdi => bdi.innerText) : [];
             if (!trackArtists.length) {
                 trackArtists = releaseArtists;
             }
             // recording search will be pre-filled with title and artists to improve the results
             const recordingQuery = `${matches[1]} ${trackArtists.join(' ')}`;
 
-            span.className = 'add-rc btn';
-            span.onclick = addRemixCreditClickHandler;
-            span.setAttribute('data-remix-of', recordingQuery);
+            button.className = 'add-item with-label';
+            button.onclick = addRemixCreditClickHandler;
+            button.setAttribute('data-remix-of', recordingQuery);
         }
 
-        span.innerHTML = `
-            <img class="bottom" src="${AddIconUri}">
+        button.innerHTML = `
             Add "remix of" credit
         `;
-        recording.appendChild(span);
+        recording.appendChild(button);
     }
 }
 
@@ -143,40 +138,51 @@ function addRemixCreditClickHandler(event) {
     const remixer = this.getAttribute('data-remixer');
     const remixOf = this.getAttribute('data-remix-of');
 
-    const addRel = recording.getElementsByClassName('add-rel')[0];
+    const addRel = recording.querySelector('button.add-relationship');
     addRel.click();
 
     if (remixer) {
         // wait 250ms for the dialog to be added to the DOM
         window.setTimeout(function () {
-            const dialog = document.getElementById('dialog');
-            const linkType = dialog.getElementsByClassName('link-type')[0];
-            setElementValue(linkType, RemixerOptionValue, 'change');
+            const dialog = document.getElementById('add-relationship-dialog');
+            const entityType = dialog.querySelector('select.entity-type');
+            setElementValue(entityType, 'artist', 'change');
 
-            const name = dialog.getElementsByClassName('name')[0];
-            if (remixer) {
-                setElementValue(name, remixer);
-            } else {
-                name.focus();
+            const linkType = dialog.querySelector('input.relationship-type');
+            setElementValue(linkType, 'remixed / remixer');
+            tabToConfirmFirstOption(linkType);
+
+            const name = dialog.querySelector('input.relationship-target');
+            setElementValue(name, remixer);
+            const search = name.parentElement.querySelector('button.search');
+            if (search) {
+                window.setTimeout(function() {
+                    search.click();
+                    name.focus();
+                }, 100);
             }
         }, 250);
     } else if (remixOf) {
         // wait 250ms for the dialog to be added to the DOM
         window.setTimeout(function () {
-            const dialog = document.getElementById('dialog');
-            const entityType = dialog.getElementsByClassName('entity-type')[0];
+            const dialog = document.getElementById('add-relationship-dialog');
+            const entityType = dialog.querySelector('select.entity-type');
             setElementValue(entityType, 'recording', 'change');
 
             // wait another 250ms for the link-type select options to be updated
             window.setTimeout(function () {
-                const linkType = dialog.getElementsByClassName('link-type')[0];
-                setElementValue(linkType, RemixOfOptionValue, 'change');
+                const linkType = dialog.querySelector('input.relationship-type');
+                setElementValue(linkType, 'remix of / has remixes');
+                tabToConfirmFirstOption(linkType);
 
-                const name = dialog.getElementsByClassName('name')[0];
-                if (remixOf) {
-                    setElementValue(name, remixOf);
-                } else {
-                    name.focus();
+                const name = dialog.querySelector('input.relationship-target');
+                setElementValue(name, remixOf);
+                const search = name.parentElement.querySelector('button.search');
+                if (search) {
+                    window.setTimeout(function() {
+                        search.click();
+                        name.focus();
+                    }, 100);
                 }
             }, 250);
         }, 250);
@@ -184,7 +190,9 @@ function addRemixCreditClickHandler(event) {
 }
 
 // wait 500ms for the page to fully initialise
-window.setTimeout(function () {
-    addStyleElement();
-    addRemixCreditLinks();
+const intervalId = window.setInterval(function () {
+    if (!document.querySelector('.loading-message')) {
+        window.clearInterval(intervalId);
+        addRemixCreditLinks();
+    }
 }, 500);
