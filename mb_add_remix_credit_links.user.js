@@ -107,12 +107,14 @@ function addRemixCreditLinks() {
         if (linkTypes['remix of:']) {
             button.className = 'add-item with-label btn disabled';
         } else {
-            const trackArtistElement = recording
-                    .getElementsByTagName('span')[1];
+            const trackArtistElement =
+                recording.getElementsByTagName('span')[1];
 
-            let trackArtists = trackArtistElement ? Array.from(
-                trackArtistElement.getElementsByTagName('bdi')
-            ).map(bdi => bdi.innerText) : [];
+            let trackArtists = trackArtistElement
+                ? Array.from(
+                      trackArtistElement.getElementsByTagName('bdi')
+                  ).map(bdi => bdi.innerText)
+                : [];
             if (!trackArtists.length) {
                 trackArtists = releaseArtists;
             }
@@ -156,7 +158,7 @@ function addRemixCreditClickHandler(event) {
             setElementValue(name, remixer);
             const search = name.parentElement.querySelector('button.search');
             if (search) {
-                window.setTimeout(function() {
+                window.setTimeout(() => {
                     search.click();
                     name.focus();
                 }, 100);
@@ -170,16 +172,19 @@ function addRemixCreditClickHandler(event) {
             setElementValue(entityType, 'recording', 'change');
 
             // wait another 250ms for the link-type select options to be updated
-            window.setTimeout(function () {
-                const linkType = dialog.querySelector('input.relationship-type');
+            window.setTimeout(() => {
+                const linkType = dialog.querySelector(
+                    'input.relationship-type'
+                );
                 setElementValue(linkType, 'remix of / has remixes');
                 tabToConfirmFirstOption(linkType);
 
                 const name = dialog.querySelector('input.relationship-target');
                 setElementValue(name, remixOf);
-                const search = name.parentElement.querySelector('button.search');
+                const search =
+                    name.parentElement.querySelector('button.search');
                 if (search) {
-                    window.setTimeout(function() {
+                    window.setTimeout(() => {
                         search.click();
                         name.focus();
                     }, 100);
@@ -190,7 +195,7 @@ function addRemixCreditClickHandler(event) {
 }
 
 // wait 500ms for the page to fully initialise
-const intervalId = window.setInterval(function () {
+const intervalId = window.setInterval(() => {
     if (!document.querySelector('.loading-message')) {
         window.clearInterval(intervalId);
         addRemixCreditLinks();
