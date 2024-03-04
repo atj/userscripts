@@ -32,6 +32,20 @@
 const TitleRemixRegexp =
     /^\s*(.+)\s+\(\s*(.+)\s+(?:(?:re-?)?(?:[dr]ub|edit|mix)|re-?(?:model|shuffle|work)).*\)/i;
 
+/* Examples of track titles this regex should match:
+ *
+ * Iceolate (12″ extended mix)
+ * Zone 12 (extended mix)
+ * Punks in the City (disco edit)
+ * Individualists (7inch version)
+ * Wicked Games (radio edit)
+ * Respectness (dub version)
+ * Barcelona (extended version)
+ * Flux (extended 12″ mix)
+ */
+const TitleEditRegexp =
+    /^\s*(.+)\s+\(\s*(?:extended|disco|dub|radio)?\s*(?:(?:7|10|12)\s*(?:['"″)]|inch)?)?\s*(?:extended|disco|dub|radio)?\s*(?:edit|mix|version)\s*\)/i;
+
 // This code is based on:
 // https://stackoverflow.com/questions/42795059/programmatically-fill-reactjs-form
 function setElementValue(element, value, event = 'input') {
@@ -75,24 +89,32 @@ function addRemixCreditLinks() {
 
     for (const recording of recordings) {
         const title = recording.querySelector('bdi').innerText;
-        const matches = TitleRemixRegexp.exec(title);
-        if (matches === null) {
+        const remixMatches = TitleRemixRegexp.exec(title);
+        const editMatches = TitleEditRegexp.exec(title);
+        if (!remixMatches && !editMatches) {
             continue;
         }
 
-        const linkTypes = {};
+        let linkTypes = {};
         // find existing relationship types for this recording
         for (const link of recording.getElementsByClassName('link-phrase')) {
             linkTypes[link.innerText] = 1;
         }
 
+        let trackArtists = Array.from(
+            recording.querySelectorAll('td > a[href^="/artist"] bdi')
+        ).map(bdi => bdi.innerText);
+        if (!trackArtists.length) {
+            trackArtists = releaseArtists;
+        }
+
         let button = document.createElement('button');
-        if (linkTypes['remixer:']) {
+        if (!remixMatches || linkTypes['remixer:']) {
             button.className = 'add-item with-label btn disabled';
-        } else {
+        } else if (remixMatches) {
             button.className = 'add-item with-label';
             button.onclick = addRemixCreditClickHandler;
-            button.setAttribute('data-remixer', matches[2]);
+            button.setAttribute('data-remixer', remixMatches[2]);
         }
 
         button.innerHTML = `
@@ -102,17 +124,13 @@ function addRemixCreditLinks() {
         recording.appendChild(document.createTextNode('\n'));
 
         button = document.createElement('button');
-        if (linkTypes['remix of:']) {
+        if (!remixMatches || linkTypes['remix of:']) {
             button.className = 'add-item with-label btn disabled';
-        } else {
-            let trackArtists = Array.from(
-                recording.querySelectorAll('td > a[href^="/artist"] bdi')
-            ).map(bdi => bdi.innerText);
-            if (!trackArtists.length) {
-                trackArtists = releaseArtists;
-            }
+        } else if (remixMatches) {
             // recording search will be pre-filled with title and artists to improve the results
-            const recordingQuery = `${matches[1]} ${trackArtists.join(' ')}`;
+            const recordingQuery = `${remixMatches[1]} ${trackArtists.join(
+                ' '
+            )}`;
 
             button.className = 'add-item with-label';
             button.onclick = addRemixCreditClickHandler;
@@ -121,6 +139,25 @@ function addRemixCreditLinks() {
 
         button.innerHTML = `
             Add "remix of" credit
+        `;
+        recording.appendChild(button);
+
+        button = document.createElement('button');
+        if (!editMatches || linkTypes['edit of:']) {
+            button.className = 'add-item with-label btn disabled';
+        } else if (editMatches) {
+            // recording search will be pre-filled with title and artists to improve the results
+            const recordingQuery = `${editMatches[1]} ${trackArtists.join(
+                ' '
+            )}`;
+
+            button.className = 'add-item with-label';
+            button.onclick = addRemixCreditClickHandler;
+            button.setAttribute('data-edit-of', recordingQuery);
+        }
+
+        button.innerHTML = `
+            Add "edit of" credit
         `;
         recording.appendChild(button);
     }
@@ -132,6 +169,7 @@ function addRemixCreditClickHandler(event) {
     const recording = this.parentElement;
     const remixer = this.getAttribute('data-remixer');
     const remixOf = this.getAttribute('data-remix-of');
+    const editOf = this.getAttribute('data-edit-of');
 
     const addRel = recording.querySelector('button.add-relationship');
     addRel.click();
@@ -157,7 +195,7 @@ function addRemixCreditClickHandler(event) {
                 }, 100);
             }
         }, 250);
-    } else if (remixOf) {
+    } else if (remixOf || editOf) {
         // wait 250ms for the dialog to be added to the DOM
         window.setTimeout(function () {
             const dialog = document.getElementById('add-relationship-dialog');
@@ -169,11 +207,14 @@ function addRemixCreditClickHandler(event) {
                 const linkType = dialog.querySelector(
                     'input.relationship-type'
                 );
-                setElementValue(linkType, 'remix of / has remixes');
+                setElementValue(
+                    linkType,
+                    remixOf ? 'remix of / has remixes' : 'edit of / edits'
+                );
                 tabToConfirmFirstOption(linkType);
 
                 const name = dialog.querySelector('input.relationship-target');
-                setElementValue(name, remixOf);
+                setElementValue(name, remixOf || editOf);
                 const search =
                     name.parentElement.querySelector('button.search');
                 if (search) {
