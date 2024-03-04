@@ -70,21 +70,17 @@ function tabToConfirmFirstOption(element) {
 function addRemixCreditLinks() {
     const recordings = document.querySelectorAll('td.recording');
     const releaseArtists = Array.from(
-        document
-            .getElementsByClassName('subheader')[0]
-            .getElementsByTagName('bdi')
-    )
-        .slice(0, -1) // slice "see all versions of this release"
-        .map(bdi => bdi.innerText);
+        document.querySelectorAll('p.subheader > a[href^="/artist"] bdi')
+    ).map(bdi => bdi.innerText);
 
     for (const recording of recordings) {
-        const title = recording.getElementsByTagName('bdi')[0].innerText;
-        let matches = TitleRemixRegexp.exec(title);
+        const title = recording.querySelector('bdi').innerText;
+        const matches = TitleRemixRegexp.exec(title);
         if (matches === null) {
             continue;
         }
 
-        let linkTypes = {};
+        const linkTypes = {};
         // find existing relationship types for this recording
         for (const link of recording.getElementsByClassName('link-phrase')) {
             linkTypes[link.innerText] = 1;
@@ -109,14 +105,9 @@ function addRemixCreditLinks() {
         if (linkTypes['remix of:']) {
             button.className = 'add-item with-label btn disabled';
         } else {
-            const trackArtistElement =
-                recording.getElementsByTagName('span')[1];
-
-            let trackArtists = trackArtistElement
-                ? Array.from(
-                      trackArtistElement.getElementsByTagName('bdi')
-                  ).map(bdi => bdi.innerText)
-                : [];
+            let trackArtists = Array.from(
+                recording.querySelectorAll('td > a[href^="/artist"] bdi')
+            ).map(bdi => bdi.innerText);
             if (!trackArtists.length) {
                 trackArtists = releaseArtists;
             }
