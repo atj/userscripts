@@ -26,9 +26,11 @@
  * Black Truffles in the Snow (Mike Huckaby's S Y N T H remix)
  * Yes, No, Maybe (Sterac Electronics instrumental remix)
  * The Rainbow Song (Crackazat rework)
+ * I Am Ice (Carbinax remodel)
+ * Tears (ReKaB re‐shuffle)
  */
 const TitleRemixRegexp =
-    /^\s*(.+)\s+\(\s*(.+)\s+(?:(?:re-?)?(?:[dr]ub|edit|mix)|re-?work).*\)/i;
+    /^\s*(.+)\s+\(\s*(.+)\s+(?:(?:re-?)?(?:[dr]ub|edit|mix)|re-?(?:model|shuffle|work)).*\)/i;
 
 // This code is based on:
 // https://stackoverflow.com/questions/42795059/programmatically-fill-reactjs-form
