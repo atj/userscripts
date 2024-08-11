@@ -5,8 +5,8 @@
 // @author      atj
 // @license     MIT; https://opensource.org/licenses/MIT
 // @namespace   https://github.com/atj/userscripts
-// @downloadURL https://raw.github.com/atj/userscripts/master/mb_add_remix_credit_links.user.js
-// @updateURL   https://raw.github.com/atj/userscripts/master/mb_add_remix_credit_links.user.js
+// @downloadURL https://raw.github.com/atj/userscripts/main/mb_add_remix_credit_links.user.js
+// @updateURL   https://raw.github.com/atj/userscripts/main/mb_add_remix_credit_links.user.js
 // @match       *://*.musicbrainz.org/release/*/edit-relationships
 // @grant       none
 // @run-at      document-idle
