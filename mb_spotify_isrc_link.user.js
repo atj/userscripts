@@ -5,8 +5,8 @@
 // @author      atj
 // @license     MIT; https://opensource.org/licenses/MIT
 // @namespace   https://github.com/atj/userscripts
-// @downloadURL https://raw.github.com/atj/userscripts/master/mb_spotify_isrc_link.user.js
-// @updateURL	https://raw.github.com/atj/userscripts/master/mb_spotify_isrc_link.user.js
+// @downloadURL https://raw.github.com/atj/userscripts/main/mb_spotify_isrc_link.user.js
+// @updateURL	https://raw.github.com/atj/userscripts/main/mb_spotify_isrc_link.user.js
 // @match       *://*.musicbrainz.org/release/*
 // @grant       none
 // @run-at      document-idle
