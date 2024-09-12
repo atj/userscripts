@@ -2,8 +2,8 @@
 // @name        MusicBrainz: Disable browser autofill on the tags field
 // @version     2021.01.31.1
 // @author      RetroPunk + atj
-// @downloadURL https://raw.github.com/atj/userscripts/master/mb_disable_tags_field_browser_autofill.user.js
-// @updateURL	https://raw.github.com/atj/userscripts/master/mb_disable_tags_field_browser_autofill.user.js
+// @downloadURL https://raw.github.com/atj/userscripts/main/mb_disable_tags_field_browser_autofill.user.js
+// @updateURL	https://raw.github.com/atj/userscripts/main/mb_disable_tags_field_browser_autofill.user.js
 // @match       *://*.musicbrainz.org/*
 // @grant       none
 // @run-at      document-idle
