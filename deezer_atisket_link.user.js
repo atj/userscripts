@@ -5,8 +5,8 @@
 // @author      atj
 // @license     MIT; https://opensource.org/licenses/MIT
 // @namespace   https://github.com/atj/userscripts
-// @downloadURL https://raw.github.com/atj/userscripts/master/deezer_atisket_link.user.js
-// @updateURL	https://raw.github.com/atj/userscripts/master/deezer_atisket_link.user.js
+// @downloadURL https://raw.github.com/atj/userscripts/main/deezer_atisket_link.user.js
+// @updateURL	https://raw.github.com/atj/userscripts/main/deezer_atisket_link.user.js
 // @match       *://www.deezer.com/*
 // @require     https://code.jquery.com/jquery-3.5.1.slim.min.js
 // @grant       none
