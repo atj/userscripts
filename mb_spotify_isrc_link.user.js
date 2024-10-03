@@ -51,7 +51,7 @@ function addImportIsrcsLink() {
     curElem = insertAfter(elem, curElem);
     elem = document.createElement('a');
     elem.target = '_blank';
-    elem.href = `https://d.ontun.es?entity=album&id=${spotifyId}&attach=${mbId}`;
+    elem.href = `https://isrchunt.com/spotify/importisrc?releaseId=${spotifyId}`;
     elem.innerText = 'import ISRCs';
     curElem = insertAfter(elem, curElem);
     elem = document.createTextNode(']');
