@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        MusicBrainz: Add Spotify ISRC link to release pages
-// @version     2021.1.30.2
+// @version     2024.10.24.1
 // @description Adds an "import ISRCs" link to MusicBrainz release pages with a Spotify URL
 // @author      atj
 // @license     MIT; https://opensource.org/licenses/MIT
