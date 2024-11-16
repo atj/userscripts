@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        MusicBrainz: Add Spotify ISRC link to release pages
-// @version     2024.10.24.1
+// @version     2024.11.16.1
 // @description Adds an "import ISRCs" link to MusicBrainz release pages with a Spotify URL
 // @author      atj
 // @license     MIT; https://opensource.org/licenses/MIT
@@ -41,10 +41,11 @@ function addImportIsrcsLink() {
         return;
     }
 
-    const mbId = window.location.href.replace(
-        /^.+\/release\/([-0-9a-f]{36}).*$/i,
-        '$1'
-    );
+    // ISRCHunt doesn't require an MBID
+    // const mbId = window.location.href.replace(
+    //     /^.+\/release\/([-0-9a-f]{36}).*$/i,
+    //     '$1'
+    // );
     let curElem = spotifyLink.nextElementSibling.nextSibling;
     let elem = document.createTextNode(' [');
 
