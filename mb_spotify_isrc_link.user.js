@@ -13,46 +13,33 @@
 // ==/UserScript==
 
 const SpotifyLinkRegexp = new RegExp(
-    '^https?://open.spotify.com/album/([0-9a-z]+)',
+    '^https?://open.spotify.com/album/',
+    'i'
+);
+const DeezerLinkRegexp = new RegExp(
+    '^https?://www.deezer.com/album/',
     'i'
 );
 
-function addImportIsrcsLink() {
-    const releaseRels = document.getElementById('release-relationships');
-
-    if (!releaseRels) {
-        return;
-    }
-
-    let spotifyLink;
-    let spotifyId;
-
-    for (const bdi of releaseRels.getElementsByTagName('bdi')) {
-        const matches = SpotifyLinkRegexp.exec(bdi.innerText);
-
-        if (matches) {
-            spotifyId = matches[1];
-            spotifyLink = bdi.parentElement;
-            break;
-        }
-    }
-
-    if (spotifyId === undefined) {
-        return;
-    }
-
+/**
+ * Adds an "import ISRCs" link next to the given link element.
+ * @param {HTMLElement} linkElement - The link element to add the "import ISRCs" link after.
+ * @param {string} type - The type of service ("spotify" or "deezer").
+ * @param {string} id - The ID of the album.
+ */
+function addImportLink(linkElement, type, id) {
+    const isrcHuntUrl = `https://isrchunt.com/${type}/importisrc?releaseId=${id}`;
     // ISRCHunt doesn't require an MBID
     // const mbId = window.location.href.replace(
     //     /^.+\/release\/([-0-9a-f]{36}).*$/i,
     //     '$1'
     // );
-    let curElem = spotifyLink.nextElementSibling.nextSibling;
+    let curElem = linkElement.nextElementSibling.nextSibling;
     let elem = document.createTextNode(' [');
-
     curElem = insertAfter(elem, curElem);
     elem = document.createElement('a');
     elem.target = '_blank';
-    elem.href = `https://isrchunt.com/spotify/importisrc?releaseId=${spotifyId}`;
+    elem.href = isrcHuntUrl;
     elem.innerText = 'import ISRCs';
     curElem = insertAfter(elem, curElem);
     elem = document.createTextNode(']');
@@ -63,8 +50,31 @@ function insertAfter(elem, after) {
     if (after.parentNode) {
         after.parentNode.insertBefore(elem, after.nextSibling);
     }
-
     return elem;
+}
+
+function addImportIsrcsLink() {
+    const releaseRels = document.getElementById('release-relationships');
+
+    if (!releaseRels) {
+        return;
+    }
+
+    for (const bdi of releaseRels.getElementsByTagName('bdi')) {
+        let matches = bdi.innerText.match(SpotifyLinkRegexp);
+        if (matches) {
+            const spotifyId = bdi.innerText.split('/').pop();
+            const spotifyLink = bdi.parentElement;
+            addImportLink(spotifyLink, 'spotify', spotifyId);
+        }
+
+        matches = bdi.innerText.match(DeezerLinkRegexp);
+        if (matches) {
+            const deezerId = bdi.innerText.split('/').pop();
+            const deezerLink = bdi.parentElement;
+            addImportLink(deezerLink, 'deezer', deezerId);
+        }
+    }
 }
 
 window.setTimeout(addImportIsrcsLink, 250);
